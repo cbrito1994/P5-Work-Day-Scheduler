@@ -14,6 +14,10 @@ header p:first-of-type {
     padding: 20px 0px;
 }
 
+.timePicker {
+    margin-top: 20px;
+}
+
 main {
     display: flex;
     flex-direction: column;
@@ -32,7 +36,7 @@ main {
     padding-left: 28px;
     border-top: 1px dotted black;
     border-bottom: 1px dotted black;
-    width: 38px;
+    width: 46px;
 }
 
 .rowSchedule__save {
@@ -40,6 +44,8 @@ main {
     background-color: cornflowerblue;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
+    outline: none;
+    border: 1px solid black;
 }
 
 .rowSchedule__save img {
@@ -55,8 +61,26 @@ main {
 .rowSchedule input {
     flex: 1;
     font-size: 20px;
+    outline: none;
+    border-width: 1px;
 }
 
 .rowSchedule input:focus {
-    outline: 1px solid blue;
+    border: 2px solid blue; 
+}
+
+footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 80px;
+    margin-bottom: 40px;
+}
+
+.clearButton {
+    padding: 18px;
+    background-color: whitesmoke;
+    border: 1px solid black;
+    cursor: pointer;
+    width: 80%;
 }
