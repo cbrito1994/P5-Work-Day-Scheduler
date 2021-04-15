@@ -27,8 +27,8 @@ const localSaving = (initialTime, finishTime) => {
         form.on("submit", (e) => {
             e.preventDefault();
             let activitiesHistory = JSON.parse(localStorage.getItem("time")) || [];
-            let time = e.target.childNodes[1].innerHTML;
-            let dayInputValue = e.target.childNodes[3].value;
+            let time = e.target.childNodes[1].text();
+            let dayInputValue = e.target.childNodes[3].val();
             let dayActivities = {
                 start: initialTime,
                 time: time,
@@ -48,10 +48,28 @@ const retrieveInfo = () => {
             let storedTime = saved.time;
             let storedValue = saved.activity;
             for(let i = 0; i < formActivity.length; i++){
-                if(formActivity[i].childNodes[1].innerHTML === storedTime){
-                    formActivity[i].childNodes[3].value = storedValue
+                if(formActivity[i].childNodes[1].text(storedTime)){
+                    formActivity[i].childNodes[3].val(storedValue)
                 }
             }
         })
     }
+}
+
+const setColors = () => {
+    let formActivity = $('.rowSchedule');
+    formActivity.forEach((form) => {
+        let currentTime = moment().format('H') * 1;
+        let blockTime = form.childNodes[1].text().substr(0, 2);
+        let formInput = form.childNodes[3];
+        if(blockTime < currentTime){
+            formInput.css("background-color", "whitesmoke");
+            formInput.disabled = true;
+            formInput.css("cursor", "not-allowed");
+        } else if (blockTime > currentTime){
+            formInput.css("background-color", "green");
+        } else {
+            formInput.css("background-color", "red");
+        }
+    })
 }
