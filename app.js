@@ -117,3 +117,8 @@ timePicker.on('submit', (e) => {
         alert("The time you start your day must be less than when you finish your day")
     }
 })
+
+const clearSchedule = () => {
+    localStorage.removeItem("time");
+    location.reload();
+}
