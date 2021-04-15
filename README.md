@@ -18,3 +18,4 @@ In order to save your activities, you must type them on the inputs and either cl
 For you to reset the app to the initial values at which you start and finish your day and also to erase the saved activities, you only have to click on the reset button.
 
 ## Link to the app
+https://cbrito1994.github.io/P5-Work-Day-Scheduler/
