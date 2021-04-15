@@ -73,3 +73,47 @@ const setColors = () => {
         }
     })
 }
+
+timePicker.on('submit', (e) => {
+    e.preventDefault();
+    let childs = e.target.childNodes;
+    let rowSchedule = '';
+
+    if(childs[3].matches('#timePicker__start')){
+        initialTime = childs[3].val() * 1;
+    }
+    if(childs[7].matches('#timePicker__finish')){
+        finishTime = childs[7].val() * 1;
+    }
+
+    if(initialTime < finishTime){
+        let timeHistory = JSON.parse(localStorage.getItem("time")) || [];
+        let timeActivities = {
+            start: initialTime,
+            time: "",
+            activity: "",
+            finish: finishTime
+        };
+        timeHistory.push(timeActivities);
+        localStorage.setItem("time", JSON.stringify(timeHistory));
+
+        for(let i = initialTime; i < finishTime; i++){
+            rowSchedule += `
+                <form class="rowSchedule">
+                    <div class="rowSchedule__time">${i} ${i > 11 ? "PM" : "AM"}</div>
+                    <input class="rowSchedule__input" />
+                    <button class="rowSchedule__save">
+                        <img src="https://image.flaticon.com/icons/png/512/84/84297.png" alt="save" class="inputImage">
+                    </button>
+                </form>
+            `
+            main.text("");
+            main.append(rowSchedule);
+        }
+        retrieveInfo();
+        localSaving(initialTime, finishTime);
+        setColors();
+    } else {
+        alert("The time you start your day must be less than when you finish your day")
+    }
+})
