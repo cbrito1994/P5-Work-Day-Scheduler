@@ -23,12 +23,12 @@ for(let i = initialTime; i < finishTime; i++){
 
 const localSaving = (initialTime, finishTime) => {
     let formActivity = $('.rowSchedule');
-    formActivity.forEach((form) => {
-        form.on("submit", (e) => {
+    formActivity.each(function(){
+        $(this).on("submit", (e) => {
             e.preventDefault();
             let activitiesHistory = JSON.parse(localStorage.getItem("time")) || [];
-            let time = e.target.childNodes[1].text();
-            let dayInputValue = e.target.childNodes[3].val();
+            let time = e.target.childNodes[1].innerText;
+            let dayInputValue = e.target.childNodes[3].value;
             let dayActivities = {
                 start: initialTime,
                 time: time,
@@ -44,12 +44,16 @@ const localSaving = (initialTime, finishTime) => {
 const retrieveInfo = () => {
     let formActivity = $('.rowSchedule');
     if(storedActivity){
-        storedActivity.forEach(saved => {
-            let storedTime = saved.time;
-            let storedValue = saved.activity;
+        console.log(storedActivity)
+        $(storedActivity).each(function(i) {
+            console.log($(this)[i])
+            let storedTime = $(this)[0].time;
+            let storedValue = $(this)[0].activity;
+            let test = $(this)[0].start;
+            console.log(test)
             for(let i = 0; i < formActivity.length; i++){
-                if(formActivity[i].childNodes[1].text(storedTime)){
-                    formActivity[i].childNodes[3].val(storedValue)
+                if($(formActivity[i])[0].childNodes[1].innerText === storedTime){
+                    $(formActivity[i])[0].childNodes[3].value = storedValue
                 }
             }
         })
@@ -58,18 +62,18 @@ const retrieveInfo = () => {
 
 const setColors = () => {
     let formActivity = $('.rowSchedule');
-    formActivity.forEach((form) => {
+    formActivity.each(function(){
         let currentTime = moment().format('H') * 1;
-        let blockTime = form.childNodes[1].text().substr(0, 2);
-        let formInput = form.childNodes[3];
+        let blockTime = $(this)[0].innerText.substr(0, 2);
+        let formInput = $(this)[0].childNodes[3];
         if(blockTime < currentTime){
-            formInput.css("background-color", "whitesmoke");
-            formInput.disabled = true;
-            formInput.css("cursor", "not-allowed");
+            $(formInput).css("backgroundColor", "whitesmoke");
+            $(formInput).disabled = true;
+            $(formInput).css("cursor", "not-allowed");
         } else if (blockTime > currentTime){
-            formInput.css("background-color", "green");
+            $(formInput).css("backgroundColor", "green");
         } else {
-            formInput.css("background-color", "red");
+            $(formInput).css("backgroundColor", "red");
         }
     })
 }
@@ -80,10 +84,10 @@ timePicker.on('submit', (e) => {
     let rowSchedule = '';
 
     if(childs[3].matches('#timePicker__start')){
-        initialTime = childs[3].val() * 1;
+        initialTime = $(childs[3]).val() * 1;
     }
     if(childs[7].matches('#timePicker__finish')){
-        finishTime = childs[7].val() * 1;
+        finishTime = $(childs[7]).val() * 1;
     }
 
     if(initialTime < finishTime){
