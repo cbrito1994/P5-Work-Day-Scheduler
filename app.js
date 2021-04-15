@@ -122,3 +122,7 @@ const clearSchedule = () => {
     localStorage.removeItem("time");
     location.reload();
 }
+
+retrieveInfo();
+localSaving(initialTime, finishTime);
+setColors();
