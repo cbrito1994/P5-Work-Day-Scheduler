@@ -20,3 +20,23 @@ for(let i = initialTime; i < finishTime; i++){
     `
     main.append(rowSchedule);
 }
+
+const localSaving = (initialTime, finishTime) => {
+    let formActivity = $('.rowSchedule');
+    formActivity.forEach((form) => {
+        form.on("submit", (e) => {
+            e.preventDefault();
+            let activitiesHistory = JSON.parse(localStorage.getItem("time")) || [];
+            let time = e.target.childNodes[1].innerHTML;
+            let dayInputValue = e.target.childNodes[3].value;
+            let dayActivities = {
+                start: initialTime,
+                time: time,
+                activity: dayInputValue,
+                finish: finishTime
+            };
+            activitiesHistory.push(dayActivities);
+            localStorage.setItem("time", JSON.stringify(activitiesHistory));
+        })
+    })
+}
