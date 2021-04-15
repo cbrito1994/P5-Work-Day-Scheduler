@@ -40,3 +40,18 @@ const localSaving = (initialTime, finishTime) => {
         })
     })
 }
+
+const retrieveInfo = () => {
+    let formActivity = $('.rowSchedule');
+    if(storedActivity){
+        storedActivity.forEach(saved => {
+            let storedTime = saved.time;
+            let storedValue = saved.activity;
+            for(let i = 0; i < formActivity.length; i++){
+                if(formActivity[i].childNodes[1].innerHTML === storedTime){
+                    formActivity[i].childNodes[3].value = storedValue
+                }
+            }
+        })
+    }
+}
